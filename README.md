@@ -45,7 +45,7 @@ $ python manage.py runserver
 On Linux/Mac : 
 $ git clone https://github.com/VictorTherache/P10-Softdesk-API.git
 $ cd P10-Softdesk-API
-$ source env/bin/activate
+$ source env/Scripts/activate
 $ pip3 install -r requirements.txt 
 $ python manage.py makemigrations
 $ python manage.py migrate
