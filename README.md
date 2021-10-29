@@ -17,7 +17,7 @@ Librairies used :
 * [Django](https://www.djangoproject.com/)
 * [djangorestframework](https://www.django-rest-framework.org/)
 * [drf-nested-routers](https://github.com/alanjds/drf-nested-routers)
-
+* [djangorestframework-simplejwt](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 
 ## Installation
 ***
@@ -36,6 +36,7 @@ $ .\env\Scripts\activate
 Then : 
 ```
 $ pip3 install -r requirements.txt 
+$ cd .\medium_api\
 $ python manage.py makemigrations api
 $ python manage.py migrate
 $ python manage.py runserver
