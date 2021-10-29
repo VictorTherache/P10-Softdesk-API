@@ -125,10 +125,10 @@ class ContributorViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == 'list':
             print('list')
-            permission_classes = [IsProjectOwner]
+            permission_classes = [IsOwnerorContributor]
         if self.action == 'retrieve':
             print('retrieve')
-            permission_classes = [IsProjectOwner]
+            permission_classes = [IsOwnerorContributor]
         if self.action == 'update':
             permission_classes = [IsProjectOwner]
         if self.action == 'create':
