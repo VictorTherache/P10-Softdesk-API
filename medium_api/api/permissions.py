@@ -16,6 +16,8 @@ class IsOwnerorContributor(permissions.BasePermission):
             project_id = re.search("(?<=projets/)(.*)(?=/issues)", url_path)
         if "comments" in url_path:
             project_id = re.search("(?<=projets/)(.*)(?=/issues)", url_path)
+        if "contributor" in url_path:
+            project_id = re.search("(?<=projets/)(.*)(?=/contributor)", url_path)
         project_id = project_id.group()
         author_projects = Projet.objects.filter(author=request.user, id=project_id)
         contributor_projects = Contributor.objects.filter(user = request.user, projet = project_id)
@@ -51,8 +53,6 @@ class IsIssueOwner(permissions.BasePermission):
     """
     message = 'You must be an owner'
     def has_object_permission(self, request, view, obj):
-        print(obj.author_user_id_id)
-        print(request.user.id)
         return True if int(obj.author_user_id_id) == int(request.user.id) else False
 
 
