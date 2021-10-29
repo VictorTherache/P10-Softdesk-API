@@ -51,4 +51,7 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 $ python manage.py runserver
 ```
-
+## Postman API endpoints documentation
+***
+Go to this link to see all the endpoints the API : 
+https://web.postman.co/workspace/My-Workspace~130dc33f-3fb0-4c07-84f4-c0ee1e7772b0/api/b7d5e956-4c8d-4774-aa22-5b79c7f8cc35/version/9f8677dc-f8fb-4ff0-94f2-a66a3a4da4ba?tab=documentation
