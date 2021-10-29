@@ -30,7 +30,7 @@ $ cd P10-Softdesk-API
 ```
 Activate your virtual environement : 
 ```
-$ pip install venv
+$ pip install virtualenv
 $ .\env\Scripts\activate
 ```
 Then : 
