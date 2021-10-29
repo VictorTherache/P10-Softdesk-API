@@ -9,25 +9,17 @@ from .models import Projet, Issue, User, Contributor, Comments
 from .permissions import IsOwnerorContributor, IsProjectOwner, IsCommentOwner, IsIssueOwner
 
 
-class UserAPIView(RetrieveAPIView):
-    """
-    User View
-    """
-    permission_classes = (IsAuthenticated,)
-    serializer_class = UserSerializer
-
-    def get_object(self):
-        return self.request.user
-
-
 class UserViewSet(viewsets.ModelViewSet):
     """
-    This viewset automatically provides `list` and `retrieve` actions.
+    UserViewset to get info of the users in the app
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def get_permissions(self):
+        """
+        Sets the permissions for the actions
+        """
         if self.request.method == 'POST':
             self.permission_classes = (IsAuthenticated,)
 
@@ -35,17 +27,26 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class RegisterView(generics.CreateAPIView):
+    """
+    Register View to register a new user
+    """
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
 
 class ProjetViewSet(viewsets.ModelViewSet):
+    """
+    Project ViewSet with custom permissions 
+    """
     serializer_class = ProjetSerializer
     queryset = Projet.objects.all().order_by('title')
 
 
     def get_permissions(self):
+        """
+        Sets the permissions for the actions
+        """
         if self.action == 'list':
             permission_classes = [IsAuthenticated]
         if self.action == 'retrieve':
@@ -61,6 +62,10 @@ class ProjetViewSet(viewsets.ModelViewSet):
 
 
     def get_queryset(self):
+        """
+        Returns a list of filtered objects based on if the user
+        is a contributor or an author
+        """
         result_list = []
         my_projects = Contributor.objects.filter(user = self.request.user.id)
         all_projects = Projet.objects.all()
@@ -75,14 +80,23 @@ class ProjetViewSet(viewsets.ModelViewSet):
 
 
     def perform_create(self, serializer):
+        """
+        Action to perform before displaying the object
+        """
         serializer.save(author = self.request.user)
 
 
 class IssueViewSet(viewsets.ModelViewSet):
+    """
+    IssueViewSet with custom permissions
+    """
     serializer_class = IssueSerializer
     queryset = Issue.objects.all()
 
     def get_permissions(self):
+        """
+        Sets the permissions for the actions
+        """
         if self.action == 'list':
             print('list')
             permission_classes = [IsAuthenticated]
@@ -99,6 +113,10 @@ class IssueViewSet(viewsets.ModelViewSet):
 
 
     def get_queryset(self):
+        """
+        Returns a list of filtered objects based on if the user
+        is a contributor or an author
+        """
         my_projects = []
         contrib_projects = Contributor.objects.filter(user = self.request.user.id)
         for project in contrib_projects:
@@ -113,6 +131,9 @@ class IssueViewSet(viewsets.ModelViewSet):
 
 
     def perform_create(self, serializer):
+        """
+        Action to perform before displaying the object
+        """
         serializer.save(author_user_id = self.request.user, assigned_user = self.request.user)
 
 
@@ -123,6 +144,9 @@ class ContributorViewSet(viewsets.ModelViewSet):
 
 
     def get_permissions(self):
+        """
+        Sets the permissions for the actions
+        """
         if self.action == 'list':
             print('list')
             permission_classes = [IsOwnerorContributor]
@@ -139,6 +163,10 @@ class ContributorViewSet(viewsets.ModelViewSet):
 
 
     def get_queryset(self):
+        """
+        Returns a list of filtered objects based on if the user
+        is a contributor or an author
+        """
         return Contributor.objects.filter(projet=self.kwargs['projet_pk'])
 
 
@@ -148,6 +176,9 @@ class CommentsViewSet(viewsets.ModelViewSet):
 
 
     def get_permissions(self):
+        """
+        Sets the permissions for the actions
+        """
         if self.action == 'list':
             print('list')
             permission_classes = [IsAuthenticated]
@@ -166,6 +197,10 @@ class CommentsViewSet(viewsets.ModelViewSet):
     
 
     def get_queryset(self):
+        """
+        Returns a list of filtered objects based on if the user
+        is a contributor or an author
+        """
         my_projects = []
         contrib_projects = Contributor.objects.filter(user = self.request.user.id)
         for project in contrib_projects:
@@ -179,5 +214,7 @@ class CommentsViewSet(viewsets.ModelViewSet):
             return comment_queryset
 
     def perform_create(self, serializer):
+        """
+        Action to perform before displaying the object
+        """
         serializer.save(author=self.request.user)
-
