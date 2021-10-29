@@ -8,8 +8,8 @@
 ***
 API Documentation for the Softdesk Application, follow the instructions to properly setup the api and launch the http requests. 
 The Softdesk API is organized around REST. This API has predictable resource-oriented URLs, accepts JSON request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
-### Screenshot
-![Image text](https://i.ibb.co/LC80vpd/banniere-op.png)
+
+![Image text](https://ibb.co/N7D3LGx)
 ## Technologies
 ***
 Librairies used :
